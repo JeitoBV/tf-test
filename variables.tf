@@ -13,3 +13,14 @@ variable "vsphere_server" {
   description = "Vsphere Server"
   type        = string
 }
+
+variable "vm_password" {
+  description = "VM Password"
+  type        = string
+  sensitive   = true
+}
+
+variable "vm_user" {
+  description = "VM Username"
+  type        = string
+}

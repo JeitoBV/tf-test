@@ -1,5 +1,5 @@
 locals {
-  server_name = "NLTEST-USER1"
+  server_name = "NLTEST-FRANK1"
 }
 
 resource "vsphere_virtual_machine" "testserver" {
@@ -38,5 +38,19 @@ resource "vsphere_virtual_machine" "testserver" {
       dns_server_list = ["8.8.8.8"]
       dns_suffix_list = ["huijbregts.com"]
     }
+  }
+
+  provisioner "remote-exec" {
+    connection {
+      type        = "ssh"
+      user        = var.vm_user
+      password    = var.vm_password
+      host        = self.default_ip_address
+      script_path = "./terraform_%RAND%.sh"
+    }
+    inline = [
+      "hostname",
+      "sudo yum update"
+    ]
   }
 }
